@@ -1,0 +1,17 @@
+###############################################################################
+# Set default behavior to automatically normalize line endings.
+###############################################################################
+* text=auto
+
+###############################################################################
+# override GitHub's language detection
+###############################################################################
+dist linguist-vendored
+dist/ linguist-vendored
+dist/* linguist-vendored
+dist/*.js linguist-vendored
+
+tests linguist-vendored
+tests/ linguist-vendored
+tests/* linguist-vendored
+tests/*.js linguist-vendored

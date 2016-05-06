@@ -1,0 +1,50 @@
+{
+  "name": "nominatim-browser",
+  "version": "1.0.0",
+  "description": "A Nominatim client that can be used from the browser.",
+  "main": "dist/nominatim-browser.js",
+  "scripts": {
+    "build": "gulp",
+    "test": "mocha-phantomjs tests/all.html --ignore-ssl-errors=true --ssl-protocol=any"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nozzlegear/nominatim-browser.git"
+  },
+  "keywords": [
+    "nominatim",
+    "geocode",
+    "geocoder",
+    "browser"
+  ],
+  "author": "Joshua Harms <joshua@nozzlegear.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nozzlegear/nominatim-browser/issues"
+  },
+  "homepage": "https://github.com/nozzlegear/nominatim-browser#readme",
+  "dependencies": {
+    "bluebird": "^3.3.5",
+    "reqwest": "^2.0.5",
+    "xhr2": "^0.1.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-typescript": "^2.13.3",
+    "lodash": "^4.11.2",
+    "merge2": "^1.0.2",
+    "mocha": "^2.4.5",
+    "mocha-phantomjs": "^4.0.2",
+    "run-sequence": "^1.1.5",
+    "typescript": "^1.8.10",
+    "webpack-stream": "^3.2.0"
+  },
+  "typescript": {
+    "definitions": [
+      "dist/nominatim-browser.d.ts"
+    ]
+  }
+}
