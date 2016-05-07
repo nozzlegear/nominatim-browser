@@ -11,7 +11,7 @@ describe(".lookupAddress", function ()
     it ("should return data for osm addresses", function (done)
     {
        lookup({
-           osm_ids: "R136712"
+           osm_ids: "R136712" //To determine the osm_id, use a NominatimResponse's 'osm_id' and prefix it with the first letter of its `osm_type`.
        })
        .then(function (results)
        {

@@ -151,7 +151,8 @@ export interface ReverseGeocodeRequest extends BaseGeocodeRequest
 export interface LookupRequest extends Request
 {
     /**
-     * A list of up to 50 specific osm node, way or relations ids (separated by commas) to return the addresses for.
+     * A list of up to 50 specific osm node, way or relations ids separated by commas and prefixed by 'N', 'W' or 'R'.
+     * To determine the osm_id, use a NominatimResponse's 'osm_id' and prefix it with the first letter of its `osm_type`.
      */
     osm_ids: string;
 }
