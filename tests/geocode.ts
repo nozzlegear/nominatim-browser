@@ -22,6 +22,7 @@ describe(".geocode", function ()
            
            expect(result.place_id).to.be.a("string");
            expect(result.licence).to.be.a("string");
+           expect(result.osm_id).to.be.a("string");
            expect(result.lat).to.be.a("string");
            expect(result.lon).to.be.a("string");
            expect(result.display_name).to.equal("Minneapolis, Hennepin County, Minnesota, United States of America");
@@ -47,6 +48,7 @@ describe(".geocode", function ()
             
             expect(result.place_id).to.be.a("string");
             expect(result.licence).to.be.a("string");
+            expect(result.osm_id).to.be.a("string");
             expect(result.lat).to.be.a("string");
             expect(result.lon).to.be.a("string");
             expect(result.display_name).to.equal("Minneapolis, Hennepin County, Minnesota, United States of America");
