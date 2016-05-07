@@ -1,6 +1,6 @@
 {
   "name": "nominatim-browser",
-  "main": "dist/naminatim-browser.d.ts",
+  "main": "dist/nominatim-browser.d.ts",
   "description": "A Nominatim client that can be used from the browser.",
   "version": "1.0.0",
   "dependencies": {
