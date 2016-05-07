@@ -17,3 +17,5 @@ tests linguist-vendored
 tests/ linguist-vendored
 tests/* linguist-vendored
 tests/*.js linguist-vendored
+
+gulpfile.js linguist-vendored
