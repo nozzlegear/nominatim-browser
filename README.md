@@ -23,7 +23,7 @@ Use [`typings`](https://github.com/typings/typings) to install the TypeScript de
 ```bash
 typings install github:nozzlegear/nominatim-browser --save
 
-//It's a good idea to lock a GitHub-installed typings file to a certain hash
+#It's a good idea to lock a GitHub-installed typings file to a certain hash
 typings install github:nozzlegear/nominatim-browser#COMMITHASH
 ```
 
