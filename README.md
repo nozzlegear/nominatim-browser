@@ -52,7 +52,7 @@ console.log("Nominatim is", Nominatim);
 </script>
 ```
 
-### .geocode(request: GeocodeRequest): Promise<NominatimResponse[]>
+### Nominatim.geocode(request: GeocodeRequest): Promise\<NominatimResponse[]\>
 
 Looks up the latitude and longitude data for a given address, returning an array of `NominatimResponse` objects found for the address.
 
@@ -86,7 +86,7 @@ Nominatim.geocode({
 });
 ```
 
-### .reverseGeocode(request: ReverseGeocodeRequest): Promise<NominatimResponse>
+### Nominatim.reverseGeocode(request: ReverseGeocodeRequest): Promise\<NominatimResponse\>
 
 Looks up the address data for a pair of latitude and longitude coordinates.
 
@@ -112,7 +112,7 @@ Nominatim.reverseGeocode({
 });
 ```
 
-### .lookupAddress(request: LookupRequest): Promise<NominatimResponse[]>
+### Nominatim.lookupAddress(request: LookupRequest): Promise\<NominatimResponse[]\>
 
 Looks up the address for multiple Open Street Maps objects like node, way or relation.
 
