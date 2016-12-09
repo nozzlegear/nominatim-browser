@@ -11,6 +11,7 @@ var tsconfig = require("./tsconfig");
 var sequence = require('run-sequence');
 
 var tsOptions = tsconfig.compilerOptions;
+var tsFiles = tsconfig.files;
 
 var webpackOptions = {
     externals: { },
@@ -25,7 +26,7 @@ var webpackOptions = {
 
 gulp.task("lib", function ()
 {
-    var tsBuild = gulp.src("nominatim-browser.ts")
+    var tsBuild = gulp.src(tsFiles)
         .pipe(ts(ts.createProject("./tsconfig.json"), {declaration: true}));
     
     var buildDefinition = tsBuild
