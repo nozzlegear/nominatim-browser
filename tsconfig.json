@@ -8,7 +8,6 @@
         "declaration": true
     },
     "files": [
-        "typings/browser.d.ts",
         "nominatim-browser.ts"
     ]
 }
