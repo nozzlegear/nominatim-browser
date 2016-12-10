@@ -1,4 +1,3 @@
-/// <reference path="../typings/browser.d.ts" />
 import * as Promise from "bluebird";
 export declare class NaminatimError extends Error {
     requestData: XMLHttpRequest;
