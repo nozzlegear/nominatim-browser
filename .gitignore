@@ -32,4 +32,6 @@ node_modules
 # Optional REPL history
 .node_repl_history
 
-tests/built/
+# Ignore built files
+tests/built/*
+dist/*
