@@ -1,11 +1,11 @@
 {
   "name": "nominatim-browser",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A Nominatim client that can be used from the browser.",
   "main": "dist/nominatim-browser.js",
   "scripts": {
     "build": "gulp",
-    "test": "mocha-phantomjs tests/all.html --ignore-ssl-errors=true --ssl-protocol=any"
+    "test": "./node_modules/.bin/mocha-phantomjs tests/all.html --ignore-ssl-errors=true --ssl-protocol=any"
   },
   "repository": {
     "type": "git",
