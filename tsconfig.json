@@ -5,10 +5,10 @@
         "noImplicitAny": false,
         "sourceMap": false,
         "outDir": "dist",
-        "declaration": true
-    },
-    "files": [
-        "typings/browser.d.ts",
-        "nominatim-browser.ts"
-    ]
+        "declaration": true,
+        "experimentalDecorators": true,
+        "lib": [
+            "es2015"
+        ]
+    }
 }

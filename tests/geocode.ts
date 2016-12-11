@@ -1,67 +1,58 @@
-/// <reference path="./../typings/browser.d.ts" />
+import { geocode } from "../nominatim-browser";
+import { Expect, AsyncTest, TestFixture, Timeout } from "alsatian";
 
-import {geocode} from "../dist/nominatim-browser";
-const expect = chai.expect;
+@TestFixture(".geocode test fixture")
+export class GeocodeFixture {
 
-describe(".geocode", function ()
-{
-    this.timeout(10000);
-    
-    it ("should return coordinates for a city/state/country", function (done)
-    {
-       geocode({
+    @AsyncTest(".getCoords(): Should return coordinates for a city/state/country")
+    @Timeout(5000)
+    public async getCoords() {
+        const results = await geocode({
             city: "Minneapolis",
             state: "MN",
             country: "US"
-       })
-       .then(function (results)
-       {
-           expect(results.length).to.be.at.least(1);
-           
-           var result = results[0];
-           
-           expect(result.place_id).to.be.a("string");
-           expect(result.licence).to.be.a("string");
-           expect(result.osm_id).to.be.a("string");
-           expect(result.lat).to.be.a("string");
-           expect(result.lon).to.be.a("string");
-           expect(result.display_name).to.equal("Minneapolis, Hennepin County, Minnesota, United States of America");
-           
-           done();
-       })
-       .catch(done);
-    })
-    
-    it ("should return address data with coordinates", function (done)
-    {
-        geocode({
+        });
+
+        Expect(results.length >= 1).toBe(true);
+
+        const result = results[0];
+
+        Expect(typeof (result.place_id)).toBe("string");
+        Expect(typeof (result.licence)).toBe("string");
+        Expect(typeof (result.osm_id)).toBe("string");
+        Expect(typeof (result.lat)).toBe("string");
+        Expect(typeof (result.lon)).toBe("string");
+        Expect(result.display_name).toEqual("Minneapolis, Hennepin County, Minnesota, United States of America");
+    }
+
+    @AsyncTest(".getAddressWithCoords(): Should return address data with coordinates")
+    @Timeout(5000)
+    public async getAddressWithCoords() {
+        const results = await geocode({
             city: "Minneapolis",
             state: "MN",
             country: "US",
             addressdetails: true
-        })
-        .then(function (results)
-        {
-            expect(results.length).to.be.at.least(1);
-            
-            var result = results[0];
-            
-            expect(result.place_id).to.be.a("string");
-            expect(result.licence).to.be.a("string");
-            expect(result.osm_id).to.be.a("string");
-            expect(result.lat).to.be.a("string");
-            expect(result.lon).to.be.a("string");
-            expect(result.display_name).to.equal("Minneapolis, Hennepin County, Minnesota, United States of America");
-            expect(result.address).to.not.be.null;
-            
-            var address = result.address;
-            
-            expect(address.city).to.equal("Minneapolis");
-            expect(address.county).to.equal("Hennepin County");
-            expect(address.state).to.equal("Minnesota");
-            expect(address.country).to.equal("United States of America");
-            
-            done();
-        })
-    })
-});
+        });
+
+        Expect(results.length >= 1).toBe(true);
+
+        const result = results[0];
+
+        Expect(typeof(result.place_id)).toBe("string");
+        Expect(typeof(result.licence)).toBe("string");
+        Expect(typeof(result.osm_id)).toBe("string");
+        Expect(typeof(result.lat)).toBe("string");
+        Expect(typeof(result.lon)).toBe("string");
+        Expect(result.display_name).toEqual("Minneapolis, Hennepin County, Minnesota, United States of America");
+        Expect(result.address).not.toBeNull();
+        Expect(result.address).toBeDefined();
+
+        const address = result.address;
+
+        Expect(address.city).toEqual("Minneapolis");
+        Expect(address.county).toEqual("Hennepin County");
+        Expect(address.state).toEqual("Minnesota");
+        Expect(address.country).toEqual("United States of America");
+    }
+}

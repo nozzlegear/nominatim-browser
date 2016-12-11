@@ -1,135 +1,130 @@
-import * as Promise from "bluebird";
-import * as reqwest from "reqwest";
+import * as Axios from "axios";
+import * as Bluebird from "bluebird";
 
-export class NaminatimError extends Error
-{
-    constructor(message: string, public requestData: XMLHttpRequest)
-    {
+export class NominatimError extends Error {
+    constructor(message: string, public requestData) {
         super(message);
+
+        console.log("New nominatim error", requestData);
     }
 }
 
-export interface Viewbox
-{
+export interface Viewbox {
     left: number;
     right: number;
     top: number;
     bottom: number;
 }
 
-export interface Request
-{
+export interface Request {
     /**
      * Include a breakdown of the address into elements
      */
     addressdetails?: boolean;
-    
+
     /**
-     * If you are making large numbers of request please include a valid email address or alternatively include 
+     * If you are making large numbers of requests please include a valid email address or alternatively include 
      * your email address as part of the User-Agent string. This information will be kept confidential and only 
      * used to contact you in the event of a problem.
      */
     email?: string;
-        
+
     /**
      * Include additional information in the result if available, e.g. wikipedia link, opening hours.
      */
     extratags?: boolean;
-    
+
     /**
      * Include a list of alternative names in the results. These may include language variants, references, 
      * operator and brand.
      */
-    namedetails?: boolean;    
+    namedetails?: boolean;
 }
 
-export interface BaseGeocodeRequest extends Request
-{
+export interface BaseGeocodeRequest extends Request {
     /**
      * Output geometry of results in geojson format.
      */
     polygon_geojson?: boolean;
-    
+
     /**
      * Output geometry of results in kml format.
      */
     polygon_kml?: boolean;
-    
+
     /**
      * Output geometry of results in svg format.
      */
     polygon_svg?: boolean;
-    
+
     /**
      * Output geometry of results as a WKT.
      */
     polygon_text?: boolean;
 }
 
-export interface GeocodeRequest extends BaseGeocodeRequest
-{
+export interface GeocodeRequest extends BaseGeocodeRequest {
     /**
      * House number and street name.
      */
     street?: string;
-    
+
     city?: string;
-    
+
     county?: string;
-    
+
     state?: string;
-    
+
     country?: string;
-    
+
     postalcode?: string;
-    
+
     /**
      * Limit search results to the given 2-digit country codes.
      */
     countrycodes?: string[];
-    
+
     /**
      * The preferred area to find search results
      */
     viewbox?: Viewbox;
-    
+
     /**
      * The preferred area to find search results
      */
     viewboxlbrt?: Viewbox;
-    
+
     /**
      * Restrict the results to only items contained with the bounding box. Restricting the results to the bounding 
      * box also enables searching by amenity only. 
      */
     bounded?: boolean;
-    
+
     /**
      * If you do not want certain openstreetmap objects to appear in the search result, give a comma separated 
      * list of the place_id's you want to skip.
      */
     exclude_place_ids?: string[];
-    
+
     /**
      * Limit the number of returned results.
      */
     limit?: number;
-    
+
     /**
      * No explanation yet.
      */
     dedupe?: boolean;
-    
+
     /**
      * No explanation yet.
      */
-    debug?: boolean;    
+    debug?: boolean;
 }
 
-export interface ReverseGeocodeRequest extends BaseGeocodeRequest
-{
+export interface ReverseGeocodeRequest extends BaseGeocodeRequest {
     osm_type?: string[];
-    
+
     /**
      * A specific osm node / way / relation to return an address for. Please use this in preference to 
      * lat/lon where possible.
@@ -137,7 +132,7 @@ export interface ReverseGeocodeRequest extends BaseGeocodeRequest
     osm_id?: string;
 
     lat?: string;
-        
+
     lon?: string;
 
     /**
@@ -146,8 +141,7 @@ export interface ReverseGeocodeRequest extends BaseGeocodeRequest
     zoom?: number;
 }
 
-export interface LookupRequest extends Request
-{
+export interface LookupRequest extends Request {
     /**
      * A list of up to 50 specific osm node, way or relations ids separated by commas and prefixed by 'N', 'W' or 'R'.
      * To determine the osm_id, use a NominatimResponse's 'osm_id' and prefix it with the first letter of its `osm_type`.
@@ -155,8 +149,7 @@ export interface LookupRequest extends Request
     osm_ids: string;
 }
 
-export interface GeocodeAddress
-{
+export interface GeocodeAddress {
     "county": string;
     "city": string;
     "city_district": string;
@@ -172,56 +165,52 @@ export interface GeocodeAddress
     "suburb": string;
 }
 
-export interface NominatimResponse
-{
+export interface NominatimResponse {
     address: GeocodeAddress;
-    
+
     boundingbox: string[];
-    
+
     class: string;
-    
+
     display_name: string;
-    
+
     importance: number;
-    
+
     lat: string;
-    
+
     /**
      * [sic]
      */
     licence: string;
-    
+
     lon: string;
-    
+
     osm_id: string;
-    
+
     osm_type: string;
-    
+
     place_id: string;
-    
+
     svg: string;
-    
+
     type: string;
 }
 
 /**
 Creates a webrequest to the given path.
 */
-function createRequest<T>(method: string, path: string, data: Object = {})
-{   
+function createRequest<T>(path: string, data: Object = {}) {
     //Result should be in JSON
     data["format"] = "json";
-    
-    const options = {
-        url: "https://nominatim.openstreetmap.org/" + path,
-        method: method,
-        data: data,
-        headers: {
-            "Accept" : "application/json"
-        }
-    };
-    
-    return reqwest<T>(options);
+
+    const request = Axios({
+        url: `https://nominatim.openstreetmap.org/${path}`,
+        method: "GET",
+        params: data,
+        responseType: "json",
+    });
+
+    return request;
 };
 
 /**
@@ -231,23 +220,17 @@ function createRequest<T>(method: string, path: string, data: Object = {})
 * @param resolve The promise resolver.
 * @param reject The promise rejecter.
 */
-function finishRequest<T>(request: reqwest.ReqwestPromise<T>)
-{
+function finishRequest<T>(request: Axios.IPromise<Axios.AxiosXHR<T>>) {
     // While it would be nicer to use Bluebird's Promise.resolve here rather than manually resolving and rejecting,
-    // we would then lose the error message returned by reqwest.
-    
-    return new Promise<T>((res, rej) =>
-    {
-        request.then((resp) =>
-        {
-            if (request.request.status > 205 || request.request.status < 200)
-            {
-                rej(new NaminatimError(`Response for request did not indicate success. Status code: ${request.request.status}.`, request.request));
+    // we would then lose the error message.
+    return new Bluebird<T>((res, rej) => {
+        request.then((resp) => {
+            if (resp.status > 205 || resp.status < 200) {
+                return rej(new NominatimError(`Response for request did not indicate success. ${resp.status} ${resp.statusText}.`, resp.data));
             };
 
-            res(resp as T);    
-        })
-        .fail((error, message) => rej(new NaminatimError(message, error)));
+            res(resp.data);
+        }).catch(e => rej(new NominatimError(e.message, e)));
     });
 };
 
@@ -257,33 +240,29 @@ function finishRequest<T>(request: reqwest.ReqwestPromise<T>)
  * @param path The request's path.
  * @param data The request's optional querystring or body data object.
  */
-function handleFullRequest<T>(method: string, path: string, data?: any)
-{
-    var request = createRequest(method, path, data);
-    
+function handleFullRequest<T>(path: string, data?: any) {
+    var request = createRequest(path, data);
+
     return finishRequest<T>(request);
 };
 
 /**
  * Lookup the latitude and longitude data for a given address.
  */
-export function geocode(data: GeocodeRequest)
-{
-    return handleFullRequest<NominatimResponse[]>("GET", "search", data);
+export function geocode(data: GeocodeRequest) {
+    return handleFullRequest<NominatimResponse[]>("search", data);
 }
 
 /**
  * Lookup the address data for a pair of latitude and longitude coordinates.
  */
-export function reverseGeocode(data: ReverseGeocodeRequest)
-{
-    return handleFullRequest<NominatimResponse>("GET", "reverse", data);
+export function reverseGeocode(data: ReverseGeocodeRequest) {
+    return handleFullRequest<NominatimResponse>("reverse", data);
 }
 
 /**
  * Lookup the address of one or multiple OSM objects like node, way or relation. 
  */
-export function lookupAddress(data: LookupRequest)
-{
-    return handleFullRequest<NominatimResponse[]>("GET", "lookup", data);
+export function lookupAddress(data: LookupRequest) {
+    return handleFullRequest<NominatimResponse[]>("lookup", data);
 }

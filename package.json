@@ -1,11 +1,13 @@
 {
   "name": "nominatim-browser",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "A Nominatim client that can be used from the browser.",
   "main": "dist/nominatim-browser.js",
+  "typings": "dist/nominatim-browser.d.ts",
   "scripts": {
-    "build": "gulp",
-    "test": "./node_modules/.bin/mocha-phantomjs tests/all.html --ignore-ssl-errors=true --ssl-protocol=any"
+    "build": "./node_modules/.bin/tsc -p .",
+    "webpack": "./node_modules/.bin/webpack ./dist/nominatim-browser.js ./dist/nominatim-browser.webpacked.js",
+    "test": "npm run build && ./node_modules/.bin/alsatian dist/tests/*.js"
   },
   "repository": {
     "type": "git",
@@ -24,23 +26,16 @@
   },
   "homepage": "https://github.com/nozzlegear/nominatim-browser#readme",
   "dependencies": {
-    "bluebird": "^3.3.5",
-    "reqwest": "^2.0.5",
-    "xhr2": "^0.1.3"
+    "axios": "^0.15.3",
+    "bluebird": "^3.3.5"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-typescript": "^2.13.3",
-    "lodash": "^4.11.2",
-    "merge2": "^1.0.2",
-    "mocha": "^2.4.5",
-    "mocha-phantomjs": "^4.0.2",
-    "run-sequence": "^1.1.5",
-    "typescript": "^1.8.10",
-    "webpack-stream": "^3.2.0"
+    "@types/axios": "^0.9.34",
+    "@types/bluebird": "^3.0.36",
+    "alsatian": "^1.0.0-beta.4",
+    "tap-bark": "^1.0.0-rc.1",
+    "typescript": "^2.1",
+    "webpack": "^1.14.0"
   },
   "typescript": {
     "definitions": [
