@@ -2,13 +2,13 @@
 # yarn lockfile v1
 
 
+"@types/axios@^0.9.34":
+  version "0.9.34"
+  resolved "https://registry.yarnpkg.com/@types/axios/-/axios-0.9.34.tgz#6989cc08948eb0824d8661c5ab5775766ab552b5"
+
 "@types/bluebird@^3.0.36":
   version "3.0.36"
   resolved "https://registry.yarnpkg.com/@types/bluebird/-/bluebird-3.0.36.tgz#b804ddd1b1a082cf3e2137dfa7b5287f437c29b7"
-
-"@types/chai@^3.4.34":
-  version "3.4.34"
-  resolved "https://registry.yarnpkg.com/@types/chai/-/chai-3.4.34.tgz#d5335792823bb09cddd5e38c3d211b709183854d"
 
 "@types/glob@^5.0.30":
   version "5.0.30"
@@ -21,23 +21,9 @@
   version "2.0.29"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-2.0.29.tgz#5002e14f75e2d71e564281df0431c8c1b4a2a36a"
 
-"@types/mocha@^2.2.33":
-  version "2.2.33"
-  resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-2.2.33.tgz#d79a0061ec270379f4d9e225f4096fb436669def"
-
 "@types/node@*", "@types/node@>=0.0.2", "@types/node@^6.0.41", "@types/node@^6.0.50":
   version "6.0.51"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.51.tgz#84cbf25111516ec9304d0b61469dc0fa9d12ba32"
-
-"@types/whatwg-fetch@^0.0.32":
-  version "0.0.32"
-  resolved "https://registry.yarnpkg.com/@types/whatwg-fetch/-/whatwg-fetch-0.0.32.tgz#ded91dbae1e6ffb826f14b171a67e7f7e508d0c5"
-  dependencies:
-    "@types/whatwg-streams" "*"
-
-"@types/whatwg-streams@*":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@types/whatwg-streams/-/whatwg-streams-0.0.1.tgz#b9d8f23d8320939bea12dc7a48e530fdb21009b3"
 
 abbrev@1:
   version "1.0.9"
@@ -164,6 +150,12 @@ aws-sign2@~0.6.0:
 aws4@^1.2.1:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.5.0.tgz#0a29ffb79c31c9e712eeb087e8e7a64b4a56d755"
+
+axios@^0.15.3:
+  version "0.15.3"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.15.3.tgz#2c9d638b2e191a08ea1d6cc988eadd6ba5bdc053"
+  dependencies:
+    follow-redirects "1.0.0"
 
 balanced-match@^0.4.1:
   version "0.4.2"
@@ -361,7 +353,7 @@ date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
 
-debug@~2.2.0:
+debug@^2.2.0, debug@~2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.2.0.tgz#f87057e995b1a1f6ae6a4960664137bc56f039da"
   dependencies:
@@ -470,6 +462,12 @@ fill-range@^2.1.0:
     randomatic "^1.1.3"
     repeat-element "^1.1.2"
     repeat-string "^1.5.2"
+
+follow-redirects@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.0.0.tgz#8e34298cbd2e176f254effec75a1c78cc849fd37"
+  dependencies:
+    debug "^2.2.0"
 
 for-in@^0.1.5:
   version "0.1.6"
@@ -806,10 +804,6 @@ loader-utils@^0.2.11:
     emojis-list "^2.0.0"
     json5 "^0.5.0"
     object-assign "^4.0.1"
-
-lodash@^4.11.2:
-  version "4.17.2"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.2.tgz#34a3055babe04ce42467b607d700072c7ff6bf42"
 
 longest@^1.0.1:
   version "1.0.1"
@@ -1478,10 +1472,6 @@ wordwrap@~0.0.2:
 wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
-
-xhr2@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/xhr2/-/xhr2-0.1.3.tgz#cbfc4759a69b4a888e78cf4f20b051038757bd11"
 
 xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.1"

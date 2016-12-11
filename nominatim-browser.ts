@@ -1,8 +1,11 @@
+import * as Axios from "axios";
 import * as Bluebird from "bluebird";
 
 export class NominatimError extends Error {
     constructor(message: string, public requestData) {
         super(message);
+
+        console.log("New nominatim error", requestData);
     }
 }
 
@@ -196,22 +199,18 @@ export interface NominatimResponse {
 /**
 Creates a webrequest to the given path.
 */
-function createRequest<T>(method: string, path: string, data: Object = {}) {
+function createRequest<T>(path: string, data: Object = {}) {
     //Result should be in JSON
     data["format"] = "json";
 
-    
+    const request = Axios({
+        url: `https://nominatim.openstreetmap.org/${path}`,
+        method: "GET",
+        params: data,
+        responseType: "json",
+    });
 
-    const options = {
-        url: "https://nominatim.openstreetmap.org/" + path,
-        method: method,
-        data: data,
-        headers: {
-            "Accept": "application/json"
-        }
-    };
-
-    return reqwest<T>(options);
+    return request;
 };
 
 /**
@@ -221,19 +220,17 @@ function createRequest<T>(method: string, path: string, data: Object = {}) {
 * @param resolve The promise resolver.
 * @param reject The promise rejecter.
 */
-function finishRequest<T>(request: reqwest.ReqwestPromise<T>) {
+function finishRequest<T>(request: Axios.IPromise<Axios.AxiosXHR<T>>) {
     // While it would be nicer to use Bluebird's Promise.resolve here rather than manually resolving and rejecting,
-    // we would then lose the error message returned by reqwest.
-
+    // we would then lose the error message.
     return new Bluebird<T>((res, rej) => {
         request.then((resp) => {
-            if (request.request.status > 205 || request.request.status < 200) {
-                rej(new NominatimError(`Response for request did not indicate success. Status code: ${request.request.status}.`, request.request));
+            if (resp.status > 205 || resp.status < 200) {
+                return rej(new NominatimError(`Response for request did not indicate success. ${resp.status} ${resp.statusText}.`, resp.data));
             };
 
-            res(resp as T);
-        })
-            .fail((error, message) => rej(new NominatimError(message, error)));
+            res(resp.data);
+        }).catch(e => rej(new NominatimError(e.message, e)));
     });
 };
 
@@ -243,8 +240,8 @@ function finishRequest<T>(request: reqwest.ReqwestPromise<T>) {
  * @param path The request's path.
  * @param data The request's optional querystring or body data object.
  */
-function handleFullRequest<T>(method: string, path: string, data?: any) {
-    var request = createRequest(method, path, data);
+function handleFullRequest<T>(path: string, data?: any) {
+    var request = createRequest(path, data);
 
     return finishRequest<T>(request);
 };
@@ -253,19 +250,19 @@ function handleFullRequest<T>(method: string, path: string, data?: any) {
  * Lookup the latitude and longitude data for a given address.
  */
 export function geocode(data: GeocodeRequest) {
-    return handleFullRequest<NominatimResponse[]>("GET", "search", data);
+    return handleFullRequest<NominatimResponse[]>("search", data);
 }
 
 /**
  * Lookup the address data for a pair of latitude and longitude coordinates.
  */
 export function reverseGeocode(data: ReverseGeocodeRequest) {
-    return handleFullRequest<NominatimResponse>("GET", "reverse", data);
+    return handleFullRequest<NominatimResponse>("reverse", data);
 }
 
 /**
  * Lookup the address of one or multiple OSM objects like node, way or relation. 
  */
 export function lookupAddress(data: LookupRequest) {
-    return handleFullRequest<NominatimResponse[]>("GET", "lookup", data);
+    return handleFullRequest<NominatimResponse[]>("lookup", data);
 }
