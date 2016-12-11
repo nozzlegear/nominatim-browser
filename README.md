@@ -12,22 +12,14 @@ The goal of `nominatim-browser` is to fill both of those holes by providing a No
 
 ## Installing
 
-You can install this package from [NPM](https://npmjs.com/package/nominatim-browser):
+You can install this package from [NPM](https://npmjs.com/package/nominatim-browser) or with [Yarn](https://github.com/yarnpkg/yarn):
 
 ```bash
 npm install nominatim-browser --save
+
+# Or via Yarn
+yarn add nominatim-browser
 ```
-
-Use [`typings`](https://github.com/typings/typings) to install the TypeScript definition from GitHub:
-
-```bash
-typings install github:nozzlegear/nominatim-browser --save
-
-#It's a good idea to lock a GitHub-installed typings file to a certain hash
-typings install github:nozzlegear/nominatim-browser#COMMITHASH
-```
-
-(This package will soon be added to the `typings` registry.)
 
 ## Usage
 
@@ -41,7 +33,7 @@ import * as Nominatim from "nominatim-browser";
 var Nominatim = require("nominatim-browser";
 ```
 
-If you can't use `require` or ES6-imports, this package [also provides a webpacked version](https://github.com/nozzlegear/nominatim-browser/blob/master/dist/nominatim-browser.webpacked.js) which bundles all of the necessary dependencies.
+If you can't use `require` or ES6-imports, this package also provides a webpacked version (dist/nominatim-browser.webpacked.js) which bundles all of the necessary dependencies.
 Once loaded, the bundled script will make all `nominatim-browser` functions available under the `Nominatim` variable.
 
 ```html
