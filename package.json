@@ -5,9 +5,10 @@
   "main": "dist/nominatim-browser.js",
   "typings": "dist/nominatim-browser.d.ts",
   "scripts": {
-    "build": "./node_modules/.bin/tsc -p .",
+    "build": "./node_modules/.bin/tsc -p . && npm run webpack",
     "webpack": "./node_modules/.bin/webpack ./dist/nominatim-browser.js ./dist/nominatim-browser.webpacked.js",
-    "test": "npm run build && ./node_modules/.bin/alsatian dist/tests/*.js"
+    "test": "npm run build && ./node_modules/.bin/alsatian dist/tests/*.js",
+    "prepublish": "npm run test"
   },
   "repository": {
     "type": "git",
