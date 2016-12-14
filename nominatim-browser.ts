@@ -120,6 +120,11 @@ export interface GeocodeRequest extends BaseGeocodeRequest {
      * No explanation yet.
      */
     debug?: boolean;
+
+    /**
+     * Query string to search for. Can be sent as an alternative to the street, city, county, etc. properties.
+     */
+    q?: string;
 }
 
 export interface ReverseGeocodeRequest extends BaseGeocodeRequest {
