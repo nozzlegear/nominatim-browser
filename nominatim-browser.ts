@@ -199,6 +199,8 @@ export interface NominatimResponse {
     svg: string;
 
     type: string;
+
+    extratags: any;
 }
 
 /**
