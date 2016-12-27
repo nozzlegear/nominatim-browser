@@ -16,6 +16,8 @@ export interface Viewbox {
     bottom: number;
 }
 
+export type FeatureType = 'settlement' | 'country' | 'city' | 'state';
+
 export interface Request {
     /**
      * Include a breakdown of the address into elements
@@ -125,6 +127,11 @@ export interface GeocodeRequest extends BaseGeocodeRequest {
      * Query string to search for. Can be sent as an alternative to the street, city, county, etc. properties.
      */
     q?: string;
+
+    /**
+     * Limit results to certain type, instead of trying to match all possible matches.
+     */
+    featuretype?: FeatureType;
 }
 
 export interface ReverseGeocodeRequest extends BaseGeocodeRequest {
