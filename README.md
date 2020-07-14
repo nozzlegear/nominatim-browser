@@ -50,7 +50,7 @@ Looks up the latitude and longitude data for a given address, returning an array
 
 (Please [review the TypeScript definition file](https://github.com/nozzlegear/nominatim-browser/blob/master/dist/nominatim-browser.d.ts) for full documentation on `GeocodeRequest`, `NominatimResponse` and all other object types.)
 
-```js
+```ts
 Nominatim.geocode({
     city: "Minneapolis",
     state: "MN",
@@ -82,7 +82,7 @@ Nominatim.geocode({
 
 Looks up the address data for a pair of latitude and longitude coordinates.
 
-```js
+```ts
 Nominatim.reverseGeocode({
     lat: "44.9772995",
     lon: "-93.2654691",
@@ -108,7 +108,7 @@ Nominatim.reverseGeocode({
 
 Looks up the address for multiple Open Street Maps objects like node, way or relation.
 
-```js
+```ts
 Nominatim.lookupAddress({
     osm_ids: "R136712,R146656" //A list of OSM ids separated by comma
 })
@@ -126,6 +126,29 @@ Nominatim.lookupAddress({
 .catch((error) =>
 {
     console.error(error); 
+});
+```
+
+## Specifying a custom server URL
+
+All three functions (`.geocode`, `.reverseGeocode` and `.lookupAddress`) take a second, optional parameter that lets you customize the Nominatim server URL:
+
+```ts
+const address = {
+    city: "Minneapolis",
+    state: "MN",
+    country: "US",
+    addressdetails: true
+};
+const customUrl = "https://example.com";
+
+Nominatim.geocode(address, customUrl).then((results: NominatimResponse[]) =>
+{
+    console.log(results);
+})
+.catch((error) =>
+{
+    console.error(error);
 });
 ```
 
