@@ -1,6 +1,6 @@
 {
   "name": "nominatim-browser",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "A Nominatim client that can be used from the browser.",
   "main": "dist/nominatim-browser.js",
   "typings": "dist/nominatim-browser.d.ts",
