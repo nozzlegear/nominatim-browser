@@ -219,7 +219,7 @@ function createRequest<T>(path: string, data: Object = {}, nominatimUrl: string)
     //Result should be in JSON
     data["format"] = "json";
 
-    const request = Axios({
+    const request = Axios<T>({
         url: `${nominatimUrl}/${path}`,
         method: "GET",
         params: data,
@@ -257,7 +257,7 @@ function finishRequest<T>(request: Axios.IPromise<Axios.AxiosXHR<T>>) {
  * @param data The request's optional querystring or body data object.
  */
 function handleFullRequest<T>(path: string, nominatimUrl: string, data?: any) {
-    var request = createRequest(path, data, nominatimUrl);
+    var request = createRequest<T>(path, data, nominatimUrl);
 
     return finishRequest<T>(request);
 };
