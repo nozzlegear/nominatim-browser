@@ -16,10 +16,9 @@ export class GeocodeFixture {
         Expect(results.length >= 1).toBe(true);
 
         const result = results[0];
-
-        Expect(typeof (result.place_id)).toBe("string");
+        Expect(typeof (result.place_id)).toBe("number");
         Expect(typeof (result.licence)).toBe("string");
-        Expect(typeof (result.osm_id)).toBe("string");
+        Expect(typeof (result.osm_id)).toBe("number");
         Expect(typeof (result.lat)).toBe("string");
         Expect(typeof (result.lon)).toBe("string");
         Expect(result.display_name).toEqual("Minneapolis, Hennepin County, Minnesota, United States of America");
@@ -39,9 +38,9 @@ export class GeocodeFixture {
 
         const result = results[0];
 
-        Expect(typeof(result.place_id)).toBe("string");
+        Expect(typeof(result.place_id)).toBe("number");
         Expect(typeof(result.licence)).toBe("string");
-        Expect(typeof(result.osm_id)).toBe("string");
+        Expect(typeof(result.osm_id)).toBe("number");
         Expect(typeof(result.lat)).toBe("string");
         Expect(typeof(result.lon)).toBe("string");
         Expect(result.display_name).toEqual("Minneapolis, Hennepin County, Minnesota, United States of America");

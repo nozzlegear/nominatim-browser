@@ -14,7 +14,7 @@ export class LookupTestFixture {
         
         const result = results[0];
         
-        Expect(typeof(result.place_id)).toBe("string");
+        Expect(typeof(result.place_id)).toBe("number");
         Expect(typeof(result.licence)).toBe("string");
         Expect(typeof(result.lat)).toBe("string");
         Expect(typeof(result.lon)).toBe("string");

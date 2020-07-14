@@ -13,11 +13,11 @@ export class ReverseGeocodeTestFixture {
     public async reverseGeocode() {
         const result = await reverseGeocode(ReverseGeocodeTestFixture.MINNEAPOLIS_LAT_LONG);
 
-        Expect(typeof (result.place_id)).toBe("string");
+        Expect(typeof (result.place_id)).toBe("number");
         Expect(typeof (result.licence)).toBe("string");
         Expect(typeof (result.lat)).toBe("string");
         Expect(typeof (result.lon)).toBe("string");
-        Expect(result.display_name).toEqual("Minneapolis City Hall, South 4th Street, St Anthony West, Phillips, Minneapolis, Hennepin County, Minnesota, 55415, United States of America");
+        Expect(result.display_name).toEqual("Minneapolis City Hall, Government Center Plaza, St Anthony West, Phillips, Minneapolis, Hennepin County, Minnesota, United States of America");
     }
 
     @AsyncTest(".reverseGeocodeWithAddress(): Should return address data for coordinates")
@@ -28,11 +28,11 @@ export class ReverseGeocodeTestFixture {
             ...ReverseGeocodeTestFixture.MINNEAPOLIS_LAT_LONG
         });
 
-        Expect(typeof (result.place_id)).toBe("string");
+        Expect(typeof (result.place_id)).toBe("number");
         Expect(typeof (result.licence)).toBe("string");
         Expect(typeof (result.lat)).toBe("string");
         Expect(typeof (result.lon)).toBe("string");
-        Expect(result.display_name).toEqual("Minneapolis City Hall, South 4th Street, St Anthony West, Phillips, Minneapolis, Hennepin County, Minnesota, 55415, United States of America");
+        Expect(result.display_name).toEqual("Minneapolis City Hall, Government Center Plaza, St Anthony West, Phillips, Minneapolis, Hennepin County, Minnesota, United States of America");
         Expect(result.address).not.toBeNull();
         Expect(result.address).toBeDefined();
 
