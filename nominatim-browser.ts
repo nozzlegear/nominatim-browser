@@ -210,15 +210,17 @@ export interface NominatimResponse {
     extratags: any;
 }
 
+const NOMINATIM_URL: string = 'https://nominatim.openstreetmap.org';
+
 /**
 Creates a webrequest to the given path.
 */
-function createRequest<T>(path: string, data: Object = {}) {
+function createRequest<T>(path: string, data: Object = {}, nominatimUrl: string) {
     //Result should be in JSON
     data["format"] = "json";
 
     const request = Axios({
-        url: `https://nominatim.openstreetmap.org/${path}`,
+        url: `${nominatimUrl}/${path}`,
         method: "GET",
         params: data,
         responseType: "json",
@@ -254,8 +256,8 @@ function finishRequest<T>(request: Axios.IPromise<Axios.AxiosXHR<T>>) {
  * @param path The request's path.
  * @param data The request's optional querystring or body data object.
  */
-function handleFullRequest<T>(path: string, data?: any) {
-    var request = createRequest(path, data);
+function handleFullRequest<T>(path: string, nominatimUrl: string, data?: any) {
+    var request = createRequest(path, data, nominatimUrl);
 
     return finishRequest<T>(request);
 };
@@ -263,20 +265,20 @@ function handleFullRequest<T>(path: string, data?: any) {
 /**
  * Lookup the latitude and longitude data for a given address.
  */
-export function geocode(data: GeocodeRequest) {
-    return handleFullRequest<NominatimResponse[]>("search", data);
+export function geocode(data: GeocodeRequest, nominatimUrl: string = NOMINATIM_URL) {
+    return handleFullRequest<NominatimResponse[]>("search", nominatimUrl, data);
 }
 
 /**
  * Lookup the address data for a pair of latitude and longitude coordinates.
  */
-export function reverseGeocode(data: ReverseGeocodeRequest) {
-    return handleFullRequest<NominatimResponse>("reverse", data);
+export function reverseGeocode(data: ReverseGeocodeRequest, nominatimUrl: string = NOMINATIM_URL) {
+    return handleFullRequest<NominatimResponse>("reverse", nominatimUrl, data);
 }
 
 /**
  * Lookup the address of one or multiple OSM objects like node, way or relation. 
  */
-export function lookupAddress(data: LookupRequest) {
-    return handleFullRequest<NominatimResponse[]>("lookup", data);
+export function lookupAddress(data: LookupRequest, nominatimUrl: string = NOMINATIM_URL) {
+    return handleFullRequest<NominatimResponse[]>("lookup", nominatimUrl, data);
 }
