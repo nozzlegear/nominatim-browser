@@ -17,7 +17,7 @@ export class ReverseGeocodeTestFixture {
         Expect(typeof (result.licence)).toBe("string");
         Expect(typeof (result.lat)).toBe("string");
         Expect(typeof (result.lon)).toBe("string");
-        Expect(result.display_name).toEqual("Minneapolis City Hall, Government Center Plaza, St Anthony West, Phillips, Minneapolis, Hennepin County, Minnesota, United States of America");
+        Expect(result.display_name).toEqual("Minneapolis City Hall, Government Center Plaza, Minneapolis, Hennepin County, Minnesota, United States");
     }
 
     @AsyncTest(".reverseGeocodeWithAddress(): Should return address data for coordinates")
@@ -32,7 +32,7 @@ export class ReverseGeocodeTestFixture {
         Expect(typeof (result.licence)).toBe("string");
         Expect(typeof (result.lat)).toBe("string");
         Expect(typeof (result.lon)).toBe("string");
-        Expect(result.display_name).toEqual("Minneapolis City Hall, Government Center Plaza, St Anthony West, Phillips, Minneapolis, Hennepin County, Minnesota, United States of America");
+        Expect(result.display_name).toEqual("Minneapolis City Hall, Government Center Plaza, Minneapolis, Hennepin County, Minnesota, United States");
         Expect(result.address).not.toBeNull();
         Expect(result.address).toBeDefined();
 
@@ -41,6 +41,6 @@ export class ReverseGeocodeTestFixture {
         Expect(address.city).toEqual("Minneapolis");
         Expect(address.county).toEqual("Hennepin County");
         Expect(address.state).toEqual("Minnesota");
-        Expect(address.country).toEqual("United States of America");
+        Expect(address.country).toEqual("United States");
     }
 }

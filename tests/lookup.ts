@@ -18,7 +18,7 @@ export class LookupTestFixture {
         Expect(typeof(result.licence)).toBe("string");
         Expect(typeof(result.lat)).toBe("string");
         Expect(typeof(result.lon)).toBe("string");
-        Expect(result.display_name).toEqual("Minneapolis, Hennepin County, Minnesota, United States of America");
+        Expect(result.display_name).toEqual("Minneapolis, Hennepin County, Minnesota, United States");
         Expect(result.address).not.toBeNull();
         Expect(result.address).toBeDefined();
 
@@ -27,6 +27,6 @@ export class LookupTestFixture {
         Expect(address.city).toEqual("Minneapolis");
         Expect(address.county).toEqual("Hennepin County");
         Expect(address.state).toEqual("Minnesota");
-        Expect(address.country).toEqual("United States of America");
+        Expect(address.country).toEqual("United States");
     }
 }
