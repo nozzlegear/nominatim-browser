@@ -28,7 +28,7 @@
   "homepage": "https://github.com/nozzlegear/nominatim-browser#readme",
   "dependencies": {
     "axios": "^0.18.1",
-    "bluebird": "^3.3.5"
+    "bluebird": "^3.5.5"
   },
   "devDependencies": {
     "@types/axios": "^0.9.34",
